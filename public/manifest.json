@@ -1,0 +1,18 @@
+{
+  "name": "يزل لإدارة البيانات والأعمال",
+  "short_name": "يزل",
+  "description": "منصة يزل المتكاملة لإدارة البيانات والمشاريع والمالية مع المساعد الذكي",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/yazal_logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

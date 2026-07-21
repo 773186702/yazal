@@ -1,0 +1,406 @@
+{
+  "entities": {
+    "user": {
+      "title": "User",
+      "description": "User profile metadata",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The unique Firebase Authentication UID"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "User display name"
+        },
+        "role": {
+          "type": "string",
+          "description": "User's access role (admin, accountant, sales, executor)"
+        },
+        "status": {
+          "type": "string",
+          "description": "User account status (approved, pending, suspended)"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Profile creation timestamp"
+        }
+      },
+      "required": ["uid", "email"]
+    },
+    "project": {
+      "title": "Project",
+      "description": "A business project tracked by Yazal",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "manager": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "status": {
+          "type": "string",
+          "enum": ["not_started", "active", "on_hold", "completed"]
+        },
+        "budget": {
+          "type": "number"
+        },
+        "progress": {
+          "type": "number"
+        },
+        "startDate": {
+          "type": "string"
+        },
+        "endDate": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1000
+        }
+      },
+      "required": ["id", "name", "manager", "status", "budget", "progress"]
+    },
+    "task": {
+      "title": "Task",
+      "description": "A task associated with projects or general operations",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "projectId": {
+          "type": "string"
+        },
+        "assignedTo": {
+          "type": "string",
+          "maxLength": 50
+        },
+        "priority": {
+          "type": "string",
+          "enum": ["low", "medium", "high"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["todo", "in_progress", "done"]
+        },
+        "dueDate": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "title", "assignedTo", "priority", "status"]
+    },
+    "transaction": {
+      "title": "Transaction",
+      "description": "A financial transaction for general or project billing",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["income", "expense"]
+        },
+        "amount": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "date": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "referenceId": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "type", "amount", "category", "date", "description"]
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "A business partner, client, or team contact",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "role": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "inactive"]
+        },
+        "notes": {
+          "type": "string",
+          "maxLength": 1000
+        }
+      },
+      "required": ["id", "name", "role", "email", "phone", "status"]
+    },
+    "customer": {
+      "title": "Customer",
+      "description": "Travel ERP Customer with code, nationality, status, assigned agent, and event timeline",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "inactive", "pending"]
+        },
+        "assignedTo": {
+          "type": "string"
+        },
+        "timeline": {
+          "type": "array"
+        },
+        "debts": {
+          "type": "array",
+          "description": "Optional outstanding customer debts"
+        }
+      },
+      "required": ["id", "code", "name", "phone", "nationality", "status", "assignedTo", "timeline"]
+    },
+    "currency": {
+      "title": "Currency",
+      "description": "System supported currencies and their exchange rate to Dollar",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "exchangeRate": {
+          "type": "number",
+          "description": "Exchange rate relative to 1 USD"
+        }
+      },
+      "required": ["id", "name", "code", "exchangeRate"]
+    },
+    "settings": {
+      "title": "Settings",
+      "description": "User application settings preferences",
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string"
+        },
+        "theme": {
+          "type": "string",
+          "enum": ["dark", "light", "auto"]
+        },
+        "notificationsEnabled": {
+          "type": "boolean"
+        },
+        "autoSave": {
+          "type": "boolean"
+        },
+        "businessName": {
+          "type": "string"
+        }
+      },
+      "required": ["currency", "theme", "notificationsEnabled", "autoSave", "businessName"]
+    },
+    "admin_user": {
+      "title": "Admin User",
+      "description": "User account managed in the Admin Dashboard",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 100
+        },
+        "email": {
+          "type": "string",
+          "maxLength": 254
+        },
+        "role": {
+          "type": "string",
+          "enum": ["admin", "manager", "contributor", "partner"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "suspended", "offline"]
+        },
+        "joinedDate": {
+          "type": "string"
+        },
+        "permissions": {
+          "type": "array"
+        }
+      },
+      "required": ["id", "name", "email", "role", "status", "joinedDate", "permissions"]
+    },
+    "admin_content": {
+      "title": "Admin Content",
+      "description": "Categorized content document uploaded for system use",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 150
+        },
+        "category": {
+          "type": "string",
+          "enum": ["guide", "policy", "template", "asset"]
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 1000
+        },
+        "fileSize": {
+          "type": "string"
+        },
+        "uploadedAt": {
+          "type": "string"
+        },
+        "downloadUrl": {
+          "type": "string"
+        },
+        "uploadedBy": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "title", "category", "description", "fileSize", "uploadedAt", "downloadUrl", "uploadedBy"]
+    },
+    "admin_system_settings": {
+      "title": "Admin System Settings",
+      "description": "Global settings for the Yazl platform application",
+      "type": "object",
+      "properties": {
+        "maintenanceMode": {
+          "type": "boolean"
+        },
+        "maintenanceMessage": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "allowRegistrations": {
+          "type": "boolean"
+        },
+        "aiAdvisorModel": {
+          "type": "string",
+          "enum": ["gemini-2.5-flash", "gemini-2.5-pro", "gemini-1.5-pro"]
+        },
+        "backupFrequency": {
+          "type": "string",
+          "enum": ["daily", "weekly", "manual"]
+        },
+        "alertBannerEnabled": {
+          "type": "boolean"
+        },
+        "alertBannerText": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "tableColumns": {
+          "type": "array",
+          "description": "List of active table columns in the UI"
+        }
+      },
+      "required": ["maintenanceMode", "maintenanceMessage", "allowRegistrations", "aiAdvisorModel", "backupFrequency", "alertBannerEnabled", "alertBannerText"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "user",
+      "description": "Core user metadata document"
+    },
+    "/users/{userId}/projects/{projectId}": {
+      "schema": "project",
+      "description": "Projects belonging to a specific user"
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": "task",
+      "description": "Tasks belonging to a specific user"
+    },
+    "/users/{userId}/transactions/{transactionId}": {
+      "schema": "transaction",
+      "description": "Financial transactions belonging to a specific user"
+    },
+    "/users/{userId}/contacts/{contactId}": {
+      "schema": "contact",
+      "description": "Business contacts belonging to a specific user"
+    },
+    "/users/{userId}/customers/{customerId}": {
+      "schema": "customer",
+      "description": "ERP customers belonging to a specific user account"
+    },
+    "/users/{userId}/currencies/{currencyId}": {
+      "schema": "currency",
+      "description": "System supported currencies for a specific user"
+    },
+    "/users/{userId}/settings/{settingsId}": {
+      "schema": "settings",
+      "description": "App configurations belonging to a specific user"
+    },
+    "/users/{userId}/admin_users/{adminUserId}": {
+      "schema": "admin_user",
+      "description": "Admin Users belonging to a specific user account"
+    },
+    "/users/{userId}/admin_contents/{contentId}": {
+      "schema": "admin_content",
+      "description": "Admin Contents belonging to a specific user account"
+    },
+    "/users/{userId}/admin_system_settings/{settingsId}": {
+      "schema": "admin_system_settings",
+      "description": "Global admin settings document belonging to a specific user account"
+    }
+  }
+}

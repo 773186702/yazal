@@ -1,0 +1,6 @@
+{
+  "name": "يزل - Yazal",
+  "description": "منصة يزل المتكاملة لإدارة البيانات والأعمال والمشاريع مع مساعد ذكي وتثبيت PWA",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
